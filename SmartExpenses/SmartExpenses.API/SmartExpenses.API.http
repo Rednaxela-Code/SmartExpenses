@@ -1,0 +1,6 @@
+@SmartExpenses.API_HostAddress = http://localhost:5087
+
+GET {{SmartExpenses.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,6 @@
+﻿services:
+  smartexpenses.api:
+    image: smartexpenses.api
+    build:
+      context: .
+      dockerfile: SmartExpenses.API/Dockerfile
