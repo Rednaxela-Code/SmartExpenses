@@ -1,4 +1,4 @@
-# Expense Tracker App
+# SmartExpenses App
 
 ## Project Overview
 This project aims to create a simple and efficient expense tracker application using Vue for the frontend, a .NET API for the backend, and PostgreSQL as the database. The app will cater to individual users as well as households, allowing multiple users to manage expenses collaboratively. While starting with basic functionality, the project will evolve to include analytics, receipt uploads, and AI-based receipt scanning for automatic product recognition and categorization.
