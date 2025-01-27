@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34714.143
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartExpenses.Maui", "SmartExpenses.Maui\SmartExpenses.Maui.csproj", "{DB00C275-3626-4202-8927-96A78BA82119}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartExpenses.Maui", "SmartExpenses.Maui\SmartExpenses.Maui.csproj", "{DB00C275-3626-4202-8927-96A78BA82119}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartExpenses.Api", "SmartExpenses.Api\SmartExpenses.Api.csproj", "{E2FC6A31-C78E-403B-ADCC-B3BFADDC4B6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartExpenses.Shared", "SmartExpenses.Shared\SmartExpenses.Shared.csproj", "{D5366D21-7BE1-4AEE-B3B9-E5837B2A512A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartExpenses.Data", "SmartExpenses.Data\SmartExpenses.Data.csproj", "{34F94059-D78E-41A8-A0BD-8500D1C4B7DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartExpenses.Test", "SmartExpenses.Test\SmartExpenses.Test.csproj", "{4BB2281E-F639-4C3B-AB9D-C1C5C1649E97}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,6 +25,22 @@ Global
 		{DB00C275-3626-4202-8927-96A78BA82119}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB00C275-3626-4202-8927-96A78BA82119}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DB00C275-3626-4202-8927-96A78BA82119}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{E2FC6A31-C78E-403B-ADCC-B3BFADDC4B6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2FC6A31-C78E-403B-ADCC-B3BFADDC4B6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2FC6A31-C78E-403B-ADCC-B3BFADDC4B6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2FC6A31-C78E-403B-ADCC-B3BFADDC4B6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5366D21-7BE1-4AEE-B3B9-E5837B2A512A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5366D21-7BE1-4AEE-B3B9-E5837B2A512A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5366D21-7BE1-4AEE-B3B9-E5837B2A512A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5366D21-7BE1-4AEE-B3B9-E5837B2A512A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34F94059-D78E-41A8-A0BD-8500D1C4B7DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34F94059-D78E-41A8-A0BD-8500D1C4B7DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34F94059-D78E-41A8-A0BD-8500D1C4B7DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34F94059-D78E-41A8-A0BD-8500D1C4B7DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BB2281E-F639-4C3B-AB9D-C1C5C1649E97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BB2281E-F639-4C3B-AB9D-C1C5C1649E97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BB2281E-F639-4C3B-AB9D-C1C5C1649E97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BB2281E-F639-4C3B-AB9D-C1C5C1649E97}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
