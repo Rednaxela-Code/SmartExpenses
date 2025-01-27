@@ -1,7 +1,7 @@
-# SmartExpenses App
+# Expense Tracker App
 
 ## Project Overview
-This project aims to create a simple and efficient expense tracker application using Vue for the frontend, a .NET API for the backend, and PostgreSQL as the database. The app will cater to individual users as well as households, allowing multiple users to manage expenses collaboratively. While starting with basic functionality, the project will evolve to include analytics, receipt uploads, and AI-based receipt scanning for automatic product recognition and categorization.
+This project aims to create a simple and efficient expense tracker application using Blazor Hybrid in .NET MAUI for cross-platform compatibility. The app will cater to individual users as well as households, allowing multiple users to manage expenses collaboratively. While starting with basic functionality, the project will evolve to include analytics, receipt uploads, and AI-based receipt scanning for automatic product recognition and categorization.
 
 ## Key Features
 
@@ -45,15 +45,18 @@ This project aims to create a simple and efficient expense tracker application u
    - Provide alerts for unusual spending.
 
 ## Technology Stack
-1. **Frontend**:
-   - Vue.js (TypeScript)
-   - Vite
-   - Tailwind CSS for styling
+1. **Frontend and Cross-Platform**:
+   - Blazor Hybrid in .NET MAUI for Android, iOS, Windows, and macOS.
+   - Razor components for shared UI logic.
+   - Tailwind CSS or responsive design with MAUI styling.
+
 2. **Backend**:
    - .NET 8 API
    - Authentication using JWT
+
 3. **Database**:
    - PostgreSQL
+
 4. **Other Tools**:
    - Docker for containerization
    - AI services (e.g., Azure Custom Vision or OpenAI models) for receipt scanning
@@ -98,4 +101,4 @@ This project will be licensed under the MIT License.
 
 ---
 
-By focusing on simplicity and scalability, this project aims to grow into a powerful tool for managing personal and household finances while incorporating modern technologies like AI for added value.
+By focusing on simplicity, scalability, and cross-platform compatibility, this project aims to grow into a powerful tool for managing personal and household finances while incorporating modern technologies like AI for added value.
