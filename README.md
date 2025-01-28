@@ -1,7 +1,7 @@
 # Expense Tracker App
 
 ## Project Overview
-This project aims to create a simple and efficient expense tracker application using Blazor Hybrid in .NET MAUI for cross-platform compatibility. The app will cater to individual users as well as households, allowing multiple users to manage expenses collaboratively. While starting with basic functionality, the project will evolve to include analytics, receipt uploads, and AI-based receipt scanning for automatic product recognition and categorization.
+This project aims to create a simple and efficient expense tracker application using Blazor WASM for now, do not know what we will do for mobile. The app will cater to individual users as well as households, allowing multiple users to manage expenses collaboratively. While starting with basic functionality, the project will evolve to include analytics, receipt uploads, and AI-based receipt scanning for automatic product recognition and categorization.
 
 ## Key Features
 
@@ -46,7 +46,7 @@ This project aims to create a simple and efficient expense tracker application u
 
 ## Technology Stack
 1. **Frontend and Cross-Platform**:
-   - Blazor Hybrid in .NET MAUI for Android, iOS, Windows, and macOS.
+   - Blazor.
    - Razor components for shared UI logic.
    - Tailwind CSS or responsive design with MAUI styling.
 
