@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Budget App</title>
+  <style>
+    /* Kleuren definities */
+    :root {
+      --bg-color: #202123;       /* Donkere achtergrond */
+      --text-color: #e8e6e3;      /* Lichte tekst */
+      --accent-color: #10A37F;    /* Blauwe accentkleur */
+      --header-bg: #2d2f33;       /* Header achtergrond */
+    }
+    
+    /* Reset */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      display: grid;
+      grid-template-rows: auto 1fr;
+      min-height: 100vh;
+    }
+    
+    /* Header / Navbar met flexbox */
+    header {
+      grid-row: 1;
+      background-color: var(--header-bg);
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--accent-color);
+    }
+    
+    .nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .nav a {
+      text-decoration: none;
+      color: var(--text-color);
+      transition: color 0.3s;
+    }
+    
+    .nav a:hover {
+      color: var(--accent-color);
+    }
+    
+    /* Main content */
+    main {
+      grid-row: 2;
+      padding: 2rem;
+    }
+    
+    /* Layout voor de landing page met hero */
+    .landing-page {
+      display: grid;
+      grid-template-rows: auto auto;
+      gap: 2rem;
+    }
+    
+    .hero {
+      padding: 2rem;
+      background-color: var(--header-bg);
+      border-radius: 8px;
+      text-align: center;
+    }
+    
+    .hero h1 {
+      margin-bottom: 1rem;
+      font-size: 2rem;
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+    }
+    
+    .articles {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .article {
+      background-color: var(--header-bg);
+      padding: 1rem;
+      border-radius: 8px;
+    }
+    
+    /* Layout voor inner pages (zonder hero) */
+    .inner-page {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 1rem;
+    }
+    
+  </style>
+</head>
+<body>
+  <!-- Header met logo en navigatie (nu met flexbox) -->
+  <header>
+    <div class="logo">BudgetApp</div>
+    <nav class="nav">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Budget</a></li>
+        <li><a href="#">Instellingen</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <!-- Landing page: main met hero en artikelen -->
+  <main class="landing-page">
+    <section class="hero">
+      <h1>Welkom bij BudgetApp</h1>
+      <p>Beheer je financiën op een eenvoudige en overzichtelijke manier.</p>
+    </section>
+    <section class="articles">
+      <article class="article">
+        <h2>How-to: Budget instellen</h2>
+        <p>Leer hoe je een budget instelt om je uitgaven te beheren.</p>
+      </article>
+      <article class="article">
+        <h2>Artikel: Bespaartips</h2>
+        <p>Ontdek praktische bespaartips voor dagelijks gebruik.</p>
+      </article>
+      <article class="article">
+        <h2>How-to: Uitgaven bijhouden</h2>
+        <p>Bekijk hoe je eenvoudig je uitgaven kunt bijhouden.</p>
+      </article>
+    </section>
+  </main>
+  
+  <!-- Voor andere pagina's (zonder hero) kun je de volgende structuur gebruiken: -->
+  <!--
+  <main class="inner-page">
+    <section class="content">
+      <h1>Andere Pagina</h1>
+      <p>Content zonder hero sectie.</p>
+    </section>
+  </main>
+  -->
+  
+</body>
+</html>
