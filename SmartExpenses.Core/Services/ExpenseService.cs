@@ -16,7 +16,7 @@ namespace SmartExpenses.Core.Services
 
         public async Task<bool> Add(Expense obj)
         {
-            if (ExpenseValidators.IsValid(obj))
+            if (ExpenseValidators.IsValidExpense(obj))
             {
                 await _unitOfWork.Expenses.Add(obj);
                 await _unitOfWork.Save();

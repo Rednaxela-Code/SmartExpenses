@@ -1,11 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.AspNetCore.Mvc;
 using SmartExpenses.Core.Services.IService;
-using SmartExpenses.Data.Repository.IRepo;
 using SmartExpenses.Shared.Models;
-using System.Net.Sockets;
 
 namespace SmartExpenses.Api.Controllers
 {

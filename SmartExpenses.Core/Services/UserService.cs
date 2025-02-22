@@ -16,13 +16,34 @@ namespace SmartExpenses.Core.Services
 
         public async Task<bool> Add(User obj)
         {
-            if (UserValidators.IsValid(obj))
+            if (UserValidators.IsValidUser(obj))
             {
                 await _unitOfWork.Users.Add(obj);
                 await _unitOfWork.Save();
                 return true;
             }
             return false;
+        }
+
+        public async Task<IEnumerable<User>> GetAll()
+        {
+            var users = await _unitOfWork.Users.GetAll();
+            if (!users.Any())
+            {
+                return [];
+            }
+            return users;
+
+        }
+
+        public async Task<User> GetUser(int id)
+        {
+            User? user = await _unitOfWork.Users.GetFirstOrDefault(u => u.Id == id);
+            if (user.IsValidUser())
+            {
+                return user!;
+            }
+            return new();
         }
     }
 }

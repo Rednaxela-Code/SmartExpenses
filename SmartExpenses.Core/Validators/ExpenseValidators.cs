@@ -4,13 +4,9 @@ namespace SmartExpenses.Core.Validators
 {
     public static class ExpenseValidators
     {
-        public static bool IsValid(this Expense value)
+        public static bool IsValidExpense(this Expense value)
         {
-            if (value == null)
-            {
-                return false;
-            }
-            return true;
+            return Validator.IsNotNull(value);
         }
     }
 }
