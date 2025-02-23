@@ -45,5 +45,28 @@ namespace SmartExpenses.Core.Services
             }
             return new();
         }
+
+        public async Task<bool> Update(User obj)
+        {
+            if (UserValidators.IsValidUser(obj))
+            {
+                _unitOfWork.Users.Update(obj);
+                await _unitOfWork.Save();
+                return true;
+            }
+            return false;
+        }
+
+        public async Task<bool> Delete(int id)
+        {
+            var user = await _unitOfWork.Users.GetFirstOrDefault(u => u.Id == id);
+            if (user.IsValidUser())
+            {
+                await _unitOfWork.Users.Remove(user!);
+                await _unitOfWork.Save();
+                return true;
+            }
+            return false;
+        }
     }
 }

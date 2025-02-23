@@ -75,5 +75,43 @@ namespace SmartExpenses.Api.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
+        [HttpPut(Name = "UpdateUser")]
+        public async Task<IActionResult> Update([FromBody] User user)
+        {
+            try
+            {
+                bool result = await _userService.Update(user);
+                if (result)
+                {
+                    return Ok(result);
+                }
+                return StatusCode(500, $"Message delivered: {result}");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                bool result = await _userService.Delete(id);
+                if (result)
+                {
+                    return Ok(result);
+                }
+                return NotFound(id);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
     }
 }
