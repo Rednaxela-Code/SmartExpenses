@@ -1,5 +1,4 @@
 <script setup lang="ts"></script>
-<!-- Implement Routerlink -->
 <template>
   <header>
     <div class="logo">
@@ -8,9 +7,10 @@
     <h4>SmartExpenses</h4>
     <nav class="nav">
       <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Budget</a></li>
-        <li><a href="#">Instellingen</a></li>
+        <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/">Budget</RouterLink>
+        <RouterLink to="/user">Gebruikers</RouterLink>
+        <RouterLink to="/">Instellingen</RouterLink>
       </ul>
     </nav>
   </header>
