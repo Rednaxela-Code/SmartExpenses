@@ -1,11 +1,11 @@
-<script setup lang="ts">
-</script>
-
+<script setup lang="ts"></script>
+<!-- Implement Routerlink -->
 <template>
-<header>
+  <header>
     <div class="logo">
       <img src="@/assets/logo2.svg" alt="SmartExpenses" />
     </div>
+    <h4>SmartExpenses</h4>
     <nav class="nav">
       <ul>
         <li><a href="#">Home</a></li>

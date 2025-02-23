@@ -6,7 +6,7 @@ namespace SmartExpenses.Core.Validators
     {
         public static bool IsValidUser(this User? value)
         {
-            return Validator.IsNotNull(value);
+            return value.IsNotNull();
         }
     }
 }

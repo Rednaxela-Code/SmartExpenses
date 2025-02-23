@@ -28,6 +28,12 @@
     border-radius: 4px;
   }
 
+  h4 {
+    font-size: 3rem;
+    /* Color should not live here */
+    color: var(--accent-color);
+  }
+
   .logo {
     font-size: 1.5rem;
     font-weight: bold;
