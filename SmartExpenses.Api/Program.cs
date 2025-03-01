@@ -2,12 +2,19 @@ using Microsoft.EntityFrameworkCore;
 using SmartExpenses.Core.Services;
 using SmartExpenses.Core.Services.IService;
 using SmartExpenses.Data.Database;
-using SmartExpenses.Data.Repository;
-using SmartExpenses.Data.Repository.IRepo;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigins", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -18,11 +25,12 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")
 ));
 
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IExpenseService, ExpenseService>();
 builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
+app.UseCors("AllowSpecificOrigins");
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

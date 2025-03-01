@@ -4,7 +4,7 @@
     <div class="logo">
       <img src="@/assets/logo2.svg" alt="SmartExpenses" />
     </div>
-    <h4>SmartExpenses</h4>
+    <h1>Smart Expenses App</h1>
     <nav class="nav">
       <ul>
         <RouterLink to="/">Home</RouterLink>

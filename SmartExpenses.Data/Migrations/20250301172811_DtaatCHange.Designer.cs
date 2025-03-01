@@ -11,8 +11,8 @@ using SmartExpenses.Data.Database;
 namespace SmartExpenses.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250222191707_FirstTest")]
-    partial class FirstTest
+    [Migration("20250301172811_DtaatCHange")]
+    partial class DtaatCHange
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,9 +37,11 @@ namespace SmartExpenses.Data.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("UserId")
@@ -60,7 +62,12 @@ namespace SmartExpenses.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

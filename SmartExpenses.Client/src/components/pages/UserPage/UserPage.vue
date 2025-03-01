@@ -1,5 +1,7 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import UserTable from './UserTable.vue'
+</script>
 
 <template>
-  <div>Hallo hier gaan we straks onze gebruikers managen.</div>
+  <UserTable />
 </template>

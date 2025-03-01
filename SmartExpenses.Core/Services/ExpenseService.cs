@@ -1,25 +1,24 @@
 ﻿using SmartExpenses.Core.Services.IService;
 using SmartExpenses.Core.Validators;
-using SmartExpenses.Data.Repository.IRepo;
+using SmartExpenses.Data.Database;
 using SmartExpenses.Shared.Models;
 
 namespace SmartExpenses.Core.Services
 {
     public class ExpenseService : IExpenseService
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly AppDbContext _db;
 
-        public ExpenseService(IUnitOfWork unitOfWork)
+        public ExpenseService(AppDbContext db)
         {
-            _unitOfWork = unitOfWork;
+            _db = db;
         }
 
-        public async Task<bool> Add(Expense obj)
+        public bool Add(Expense obj)
         {
             if (ExpenseValidators.IsValidExpense(obj))
             {
-                await _unitOfWork.Expenses.Add(obj);
-                await _unitOfWork.Save();
+                _db.Expenses.Add(obj);
                 return true;
             }
             return false;
