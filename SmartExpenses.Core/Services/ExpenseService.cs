@@ -1,4 +1,5 @@
-﻿using SmartExpenses.Core.Services.IService;
+﻿using Microsoft.EntityFrameworkCore;
+using SmartExpenses.Core.Services.IService;
 using SmartExpenses.Core.Validators;
 using SmartExpenses.Data.Database;
 using SmartExpenses.Shared.Models;
@@ -14,14 +15,59 @@ namespace SmartExpenses.Core.Services
             _db = db;
         }
 
-        public bool Add(Expense obj)
+        public async Task<Expense> Add(Expense obj)
         {
-            if (ExpenseValidators.IsValidExpense(obj))
+            if (obj.IsValidExpense())
             {
-                _db.Expenses.Add(obj);
+                await _db.Expenses.AddAsync(obj);
+                return obj;
+            }
+            return new();
+        }
+
+        public async Task<Expense> Update(Expense obj)
+        {
+            if (obj.IsValidExpense())
+            {
+                await _db.Expenses.ExecuteUpdateAsync(setters => setters
+                .SetProperty(b => b.User, obj.User)
+                .SetProperty(b => b.Amount, obj.Amount)
+                .SetProperty(b => b.Description, obj.Description)
+                .SetProperty(b => b.Name, obj.Name));
+                return obj;
+            }
+            return new();
+        }
+
+        public async Task<bool> Delete(Expense obj)
+        {
+            if (obj.IsValidExpense())
+            {
+                _db.Expenses.Remove(obj);
+                await _db.SaveChangesAsync();
                 return true;
             }
             return false;
+        }
+
+        public async Task<Expense> GetById(int id)
+        {
+            Expense? expense = await _db.Expenses.FirstOrDefaultAsync(e => e.Id == id);
+            if (expense.IsValidExpense())
+            {
+                return expense!;
+            }
+            return new();
+        }
+
+        public async Task<IEnumerable<Expense>> GetAll()
+        {
+            var expenses = await _db.Expenses.ToListAsync();
+            if (expenses.Any())
+            {
+                return expenses;
+            }
+            return new List<Expense>();
         }
     }
 }
