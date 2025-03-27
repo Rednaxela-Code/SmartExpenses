@@ -2,21 +2,21 @@
 using SmartExpenses.Core.Services.IService;
 using SmartExpenses.Core.Validators;
 using SmartExpenses.Shared.Models;
+using System.Runtime.CompilerServices;
 
 namespace SmartExpenses.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UsersController : Controller
+    public class UserController : Controller
     {
         private readonly IUserService _userService;
-        private readonly ILogger<UsersController> _logger;
+        private readonly ILogger<UserController> _logger;
 
-        public UsersController(IUserService userService, ILogger<UsersController> logger)
+        public UserController(IUserService userService, ILogger<UserController> logger)
         {
             _userService = userService;
             _logger = logger;
-
         }
 
         [HttpPost(Name = "CreateUser")]
@@ -29,7 +29,7 @@ namespace SmartExpenses.Api.Controllers
                 {
                     return Ok(result);
                 }
-                return StatusCode(500, $"Message delivered: {result}");
+                return StatusCode(200, $"Message delivered: {result}");
             }
             catch (Exception ex)
             {
@@ -43,12 +43,12 @@ namespace SmartExpenses.Api.Controllers
         {
             try
             {
-                var users = await _userService.GetAll();
+                var users = _userService.GetAll();
                 if (users.Any())
                 {
                     return Ok(users);
                 }
-                return StatusCode(500, $"Message delivered: False");
+                return StatusCode(404, $"No users found");
             }
             catch (Exception ex)
             {
@@ -62,12 +62,46 @@ namespace SmartExpenses.Api.Controllers
         {
             try
             {
-                var user = await _userService.GetUser(id);
+                var user = _userService.GetUser(id);
                 if (user.IsValidUser())
                 {
                     return Ok(user);
                 }
-                return NotFound(user);
+                return NotFound(id);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                var user = _userService.GetUser(id);
+                if (user.IsValidUser())
+                {
+                    var result = await _userService.DeleteUser(user);
+                }
+                return NotFound(id);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Update(User user)
+        {
+            try
+            {
+                var updatedUser = await _userService.UpdateUser(user);
+                return Ok(updatedUser);
             }
             catch (Exception ex)
             {

@@ -1,33 +1,33 @@
 ﻿using SmartExpenses.Core.Services.IService;
 using SmartExpenses.Core.Validators;
-using SmartExpenses.Data.Repository.IRepo;
+using SmartExpenses.Data.Database;
 using SmartExpenses.Shared.Models;
 
 namespace SmartExpenses.Core.Services
 {
     public class UserService : IUserService
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly AppDbContext _db;
 
-        public UserService(IUnitOfWork unitOfWork)
+        public UserService(AppDbContext db)
         {
-            _unitOfWork = unitOfWork;
+            _db = db;
         }
 
         public async Task<bool> Add(User obj)
         {
             if (UserValidators.IsValidUser(obj))
             {
-                await _unitOfWork.Users.Add(obj);
-                await _unitOfWork.Save();
+                _db.Users.Add(obj);
+                await _db.SaveChangesAsync();
                 return true;
             }
             return false;
         }
 
-        public async Task<IEnumerable<User>> GetAll()
+        public IEnumerable<User> GetAll()
         {
-            var users = await _unitOfWork.Users.GetAll();
+            var users = _db.Users.ToList();
             if (!users.Any())
             {
                 return [];
@@ -36,9 +36,9 @@ namespace SmartExpenses.Core.Services
 
         }
 
-        public async Task<User> GetUser(int id)
+        public User GetUser(int id)
         {
-            User? user = await _unitOfWork.Users.GetFirstOrDefault(u => u.Id == id);
+            User? user = _db.Users.FirstOrDefault(u => u.Id == id);
             if (user.IsValidUser())
             {
                 return user!;
@@ -46,27 +46,26 @@ namespace SmartExpenses.Core.Services
             return new();
         }
 
-        public async Task<bool> Update(User obj)
+        public async Task<bool> DeleteUser(User user)
         {
-            if (UserValidators.IsValidUser(obj))
+            if (user.IsValidUser())
             {
-                _unitOfWork.Users.Update(obj);
-                await _unitOfWork.Save();
+                _db.Users.Remove(user!);
+                await _db.SaveChangesAsync();
                 return true;
             }
             return false;
         }
 
-        public async Task<bool> Delete(int id)
+        public async Task<User> UpdateUser(User user)
         {
-            var user = await _unitOfWork.Users.GetFirstOrDefault(u => u.Id == id);
             if (user.IsValidUser())
             {
-                await _unitOfWork.Users.Remove(user!);
-                await _unitOfWork.Save();
-                return true;
+                _db.Users.Update(user!);
+                await _db.SaveChangesAsync();
+                return user;
             }
-            return false;
+            return new();
         }
     }
 }

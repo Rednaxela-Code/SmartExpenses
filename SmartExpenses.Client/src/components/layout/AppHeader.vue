@@ -1,16 +1,16 @@
 <script setup lang="ts"></script>
-<!-- Implement Routerlink -->
 <template>
   <header>
     <div class="logo">
       <img src="@/assets/logo2.svg" alt="SmartExpenses" />
     </div>
-    <h4>SmartExpenses</h4>
+    <h1>Smart Expenses App</h1>
     <nav class="nav">
       <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Budget</a></li>
-        <li><a href="#">Instellingen</a></li>
+        <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/">Budget</RouterLink>
+        <RouterLink to="/user">Gebruikers</RouterLink>
+        <RouterLink to="/">Instellingen</RouterLink>
       </ul>
     </nav>
   </header>

@@ -6,12 +6,12 @@ namespace SmartExpenses.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UserController : Controller
+    public class ExpenseController : Controller
     {
         private readonly IExpenseService _expenseService;
-        private readonly ILogger<UserController> _logger;
+        private readonly ILogger<ExpenseController> _logger;
 
-        public UserController(IExpenseService expenseService, ILogger<UserController> logger)
+        public ExpenseController(IExpenseService expenseService, ILogger<ExpenseController> logger)
         {
             _expenseService = expenseService;
             _logger = logger;
@@ -23,7 +23,7 @@ namespace SmartExpenses.Api.Controllers
         {
             try 
             {
-                bool result = await _expenseService.Add(expense);
+                bool result = _expenseService.Add(expense);
                 if (result)
                 {
                     return Ok(result);
