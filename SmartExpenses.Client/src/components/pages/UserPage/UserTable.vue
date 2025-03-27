@@ -64,9 +64,10 @@ function selectRow(row: User) {
 
 const fetchUsers = async () => {
   try {
-    users.value = await getAllUsers()
+    const userData = await getAllUsers()
+    users.value = userData ?? [] // Fallback to empty array if null
   } catch (error) {
-    console.log(error)
+    console.error('Unexpected error:', error)
   }
 }
 
@@ -148,8 +149,8 @@ onMounted(() => {
       </tbody>
     </table>
     <div class="btn-row">
-      <button @click="openEditModal" class="btn-p">Edit</button>
-      <button @click="deleteHandler" class="btn-p">Delete</button>
+      <button v-if="users.length !== 0" @click="openEditModal" class="btn-p">Edit</button>
+      <button v-if="users.length !== 0" @click="deleteHandler" class="btn-p">Delete</button>
       <button @click="openAddModal" class="btn-p">Add</button>
     </div>
   </main>

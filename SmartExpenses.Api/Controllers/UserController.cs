@@ -17,7 +17,6 @@ namespace SmartExpenses.Api.Controllers
         {
             _userService = userService;
             _logger = logger;
-
         }
 
         [HttpPost(Name = "CreateUser")]
@@ -30,7 +29,7 @@ namespace SmartExpenses.Api.Controllers
                 {
                     return Ok(result);
                 }
-                return StatusCode(500, $"Message delivered: {result}");
+                return StatusCode(200, $"Message delivered: {result}");
             }
             catch (Exception ex)
             {
@@ -49,7 +48,7 @@ namespace SmartExpenses.Api.Controllers
                 {
                     return Ok(users);
                 }
-                return StatusCode(500, $"Message delivered: False");
+                return StatusCode(404, $"No users found");
             }
             catch (Exception ex)
             {

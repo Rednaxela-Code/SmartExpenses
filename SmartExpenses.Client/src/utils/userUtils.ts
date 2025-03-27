@@ -8,12 +8,11 @@ export interface User {
 
 export const getAllUsers = async (): Promise<User[]> => {
   try {
-    const response = await httpClient.get('/user')
-    console.log('Users retrieved successfull:', response.data)
-    return response.data
-  } catch (error) {
-    console.log('Error retrieving users:', error)
-    throw error
+    const response = await httpClient.get<User[]>('/user')
+    return response.data // Always return an array
+  } catch (error: unknown) {
+    console.error('Error retrieving users:', error)
+    return [] // Return an empty array instead of null
   }
 }
 
