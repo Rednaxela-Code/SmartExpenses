@@ -62,6 +62,7 @@ namespace SmartExpenses.Core.Services
             if (user.IsValidUser())
             {
                 _db.Users.Update(user!);
+                // Fix this line SaveChangesAsync() seems not good practice for simple actions
                 await _db.SaveChangesAsync();
                 return user;
             }
