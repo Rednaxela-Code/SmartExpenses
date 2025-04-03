@@ -6,7 +6,7 @@ namespace SmartExpenses.Core.Services.IService
     {
         Task<Expense> Add(Expense obj);
         Task<Expense> Update(Expense obj);
-        Task<bool> Delete(Expense obj);
+        Task<bool> Delete(int id);
         Task<Expense> GetById(int id);
         Task<IEnumerable<Expense>> GetAll();
     }
