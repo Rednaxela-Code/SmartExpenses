@@ -30,6 +30,10 @@ namespace SmartExpenses.Api.Controllers
                 if (expense.IsValidExpense() && expense.User != null && expense.User.Id > 0)
                 {
                     var user = _userService.GetUser(expense.User.Id);
+                    if (user == null)
+                    {
+                        return NotFound($"User with id {expense.User.Id} not found");
+                    }
                     expense.User.Name = user.Name;
                     expense.User.LastName = user.LastName;
                     var result = await _expenseService.Add(expense);
