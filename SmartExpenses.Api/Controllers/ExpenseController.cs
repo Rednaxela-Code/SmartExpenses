@@ -27,22 +27,27 @@ namespace SmartExpenses.Api.Controllers
         {
             try
             {
-                if (expense.IsValidExpense() && expense.User != null && expense.User.Id > 0)
+                if (expense.IsValidExpense() && expense.UserId > 0)
                 {
-                    var user = _userService.GetUser(expense.User.Id);
+                    var user = _userService.GetUser(expense.UserId);
                     if (user == null)
                     {
-                        return NotFound($"User with id {expense.User.Id} not found");
+                        return NotFound($"User with id {expense.UserId} not found");
                     }
-                    expense.User.Name = user.Name;
-                    expense.User.LastName = user.LastName;
+
+                    // Don't attach the incoming user object — use only the ID
+                    expense.UserId = user.Id;
+
                     var result = await _expenseService.Add(expense);
+
                     if (!result.IsValidExpense())
                     {
                         return StatusCode(500, $"Message delivered: {result.Description}");
                     }
+
                     return Ok(result);
                 }
+
                 return NotFound();
             }
             catch (Exception ex)
@@ -57,11 +62,9 @@ namespace SmartExpenses.Api.Controllers
         {
             try
             {
-                if (expense.IsValidExpense() && expense.User != null && expense.User.Id > 0)
+                if (expense.IsValidExpense() && expense.UserId > 0)
                 {
-                    var user = _userService.GetUser(expense.User.Id);
-                    expense.User.Name = user.Name;
-                    expense.User.LastName = user.LastName;
+                    var user = _userService.GetUser(expense.UserId);
                     var result = await _expenseService.Update(expense);
                     if (!result.IsValidExpense())
                     {

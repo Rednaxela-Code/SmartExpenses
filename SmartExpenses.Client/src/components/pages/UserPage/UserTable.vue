@@ -2,12 +2,18 @@
 import { onMounted, ref } from 'vue'
 import { createUser, deleteUser, getAllUsers, updateUser, type User } from '@/utils/userUtils'
 import AppModal from '@/components/layout/AppModal.vue'
+import AppTable from '@/components/layout/AppTable.vue'
 
 const user = ref<User>({
   id: 0,
   name: '',
   lastName: '',
 })
+const columns = [
+  { key: 'id', label: '#' },
+  { key: 'name', label: 'Name' },
+  { key: 'lastName', label: 'Last Name' },
+]
 const users = ref<User[]>([])
 const selectedRow = ref<User | null>(null)
 const isAddModalOpened = ref(false)
@@ -125,29 +131,11 @@ onMounted(() => {
   </AppModal>
 
   <main class="inner-page">
-    <table class="content-table">
-      <caption></caption>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Name</th>
-          <th>Last Name</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="user in users"
-          :key="user.id"
-          @click="selectRow(user)"
-          :class="{ selectedRowStyling: selectedRow?.id === user.id }"
-        >
-          <td>{{ user.id }}</td>
-          <td>{{ user.name }}</td>
-          <td>{{ user.lastName }}</td>
-        </tr>
-        <tr></tr>
-      </tbody>
-    </table>
+    <AppTable
+        :columns="columns"
+        :rows="users"
+        :selected-row="selectedRow"
+        :onRowClick="selectRow" />
     <div class="btn-row">
       <button v-if="users.length !== 0" @click="openEditModal" class="btn-p">Edit</button>
       <button v-if="users.length !== 0" @click="deleteHandler" class="btn-p">Delete</button>

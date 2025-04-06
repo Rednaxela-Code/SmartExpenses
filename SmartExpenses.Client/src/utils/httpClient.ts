@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 export const httpClient = axios.create({
-  baseURL: 'https://localhost:7195',
+  baseURL: 'http://localhost:5232',
   timeout: 5000,
 })
 

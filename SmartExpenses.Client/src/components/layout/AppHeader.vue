@@ -8,9 +8,9 @@
     <nav class="nav">
       <ul>
         <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/">Budget</RouterLink>
-        <RouterLink to="/user">Gebruikers</RouterLink>
-        <RouterLink to="/">Instellingen</RouterLink>
+        <RouterLink to="/expense">Expenses</RouterLink>
+        <RouterLink to="/user">Users</RouterLink>
+        <RouterLink to="/">Settings</RouterLink>
       </ul>
     </nav>
   </header>
