@@ -20,6 +20,7 @@ namespace SmartExpenses.Core.Services
             if (obj.IsValidExpense())
             {
                 await _db.Expenses.AddAsync(obj);
+                await _db.SaveChangesAsync();
                 return obj;
             }
             return new();
@@ -30,7 +31,7 @@ namespace SmartExpenses.Core.Services
             if (obj.IsValidExpense())
             {
                 await _db.Expenses.ExecuteUpdateAsync(setters => setters
-                .SetProperty(b => b.User, obj.User)
+                .SetProperty(b => b.UserId, obj.UserId)
                 .SetProperty(b => b.Amount, obj.Amount)
                 .SetProperty(b => b.Description, obj.Description)
                 .SetProperty(b => b.Name, obj.Name));
