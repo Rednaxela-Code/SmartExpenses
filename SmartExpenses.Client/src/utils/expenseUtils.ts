@@ -18,7 +18,7 @@ export interface Expense {
     }
   }
   
-  export const createExpense = async (expense: Expense) => {
+  export const createExpense = async (expense: Expense): Promise<Expense | null> => {
     try {
       const response = await httpClient.post('/Expense', expense, {
         headers: {
@@ -26,12 +26,15 @@ export interface Expense {
         },
       })
       console.log('Expense created successfully:', response.data)
+      return response.data
     } catch (error) {
       console.error('Error creating Expense:', error)
+      return null
     }
   }
   
-  export const updateExpense = async (expense: Expense) => {
+  
+  export const updateExpense = async (expense: Expense): Promise<Expense | null> => {
     try {
       const response = await httpClient.put('/Expense', expense, {
         headers: {
@@ -39,20 +42,28 @@ export interface Expense {
         },
       })
       console.log('Expense updated successfully:', response.data)
+      return response.data
     } catch (error) {
       console.error('Error updating Expense:', error)
+      return null
     }
   }
   
-  export const deleteExpense = async (id: number) => {
+  export const deleteExpense = async (id: number): Promise<boolean> => {
     try {
       const response = await httpClient.delete(`/Expense?id=${id}`, {
         headers: {
           'Content-Type': 'application/json',
         },
       })
-      console.log('Expense deleted successfully:', response.data)
+  
+      if (response.status === 200) {
+        console.log('Expense deleted successfully:', response.data)
+        return true
+      }
     } catch (error) {
       console.error('Error deleting Expense:', error)
     }
+  
+    return false
   }

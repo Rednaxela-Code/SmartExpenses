@@ -57,9 +57,15 @@ const openEditModal = () => {
 
 const handleSubmit = async (data: User) => {
   if (modalMode.value === 'add') {
-    await createUser(data)
+    const createdUser = await createUser(data)
+    if (createdUser){
+      users.value.push(createdUser)
+    }
   } else {
-    await updateUser(data)
+    const updatedUser = await updateUser(data)
+    if (updatedUser){
+      users.value.push(updatedUser)
+    }
   }
   showModal.value = false
   await fetchUsers()
@@ -67,9 +73,14 @@ const handleSubmit = async (data: User) => {
 
 const deleteHandler = async () => {
   if (selectedRow.value) {
-    await deleteUser(selectedRow.value.id)
+    const success = await deleteUser(selectedRow.value.id)
+
+    if (success){
     users.value = users.value.filter(e => e.id !== selectedRow.value?.id)
     selectedRow.value = null
+    } else {
+      console.warn('Delete failed – keeping user in list')
+    }
   }
 }
 

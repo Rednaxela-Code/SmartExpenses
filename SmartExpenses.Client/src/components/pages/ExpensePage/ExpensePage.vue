@@ -25,7 +25,6 @@ const fields: Field[] = [
   { key: 'description', label: 'Description', type: 'textarea' }
 ]
 
-
 const fetchExpenses = async () => {
   const data = await getAllExpenses()
   expenses.value = data ?? []
@@ -53,19 +52,29 @@ const openEditModal = () => {
 
 const handleSubmit = async (data: Expense) => {
   if (modalMode.value === 'add') {
-    await createExpense(data)
+    const newExpense = await createExpense(data)
+    if (newExpense) {
+      expenses.value.push(newExpense)
+    }
   } else {
-    await updateExpense(data)
+    const updatedExpense = await updateExpense(data)
+    if (updatedExpense) {
+      expenses.value.push(updatedExpense)
+    }
   }
   showModal.value = false
-  await fetchExpenses()
 }
 
 const deleteHandler = async () => {
   if (selectedRow.value) {
-    await deleteExpense(selectedRow.value.id)
-    expenses.value = expenses.value.filter(e => e.id !== selectedRow.value?.id)
-    selectedRow.value = null
+    const success = await deleteExpense(selectedRow.value.id)
+
+    if (success) {
+      expenses.value = expenses.value.filter(e => e.id !== selectedRow.value?.id)
+      selectedRow.value = null
+    } else {
+      console.warn('Delete failed – keeping expense in list')
+    }
   }
 }
 

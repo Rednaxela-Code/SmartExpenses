@@ -16,7 +16,7 @@ export const getAllUsers = async (): Promise<User[]> => {
   }
 }
 
-export const createUser = async (user: User) => {
+export const createUser = async (user: User): Promise<User | null> => {
   try {
     const response = await httpClient.post('/user', user, {
       headers: {
@@ -24,12 +24,14 @@ export const createUser = async (user: User) => {
       },
     })
     console.log('User created successfully:', response.data)
+    return response.data
   } catch (error) {
     console.error('Error creating user:', error)
+    return null;
   }
 }
 
-export const updateUser = async (user: User) => {
+export const updateUser = async (user: User): Promise<User | null> => {
   try {
     const response = await httpClient.put('/user', user, {
       headers: {
@@ -37,20 +39,26 @@ export const updateUser = async (user: User) => {
       },
     })
     console.log('User updated successfully:', response.data)
+    return response.data
   } catch (error) {
     console.error('Error updating user:', error)
+    return null
   }
 }
 
-export const deleteUser = async (id: number) => {
+export const deleteUser = async (id: number): Promise<boolean> => {
   try {
     const response = await httpClient.delete(`/user?id=${id}`, {
       headers: {
         'Content-Type': 'application/json',
       },
     })
-    console.log('User deleted successfully:', response.data)
+    if (response.status === 200) {
+      console.log('Expense deleted successfully:', response.data)
+      return true
+    }
   } catch (error) {
     console.error('Error deleting user:', error)
   }
+  return false
 }
