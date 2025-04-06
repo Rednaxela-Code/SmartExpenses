@@ -86,7 +86,7 @@ namespace SmartExpenses.Api.Controllers
                 {
                     var result = await _userService.DeleteUser(user);
                 }
-                return NotFound(id);
+                return Ok(id);
             }
             catch (Exception ex)
             {

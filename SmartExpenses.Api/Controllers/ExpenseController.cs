@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using SmartExpenses.Core.Services.IService;
 using SmartExpenses.Core.Validators;
 using SmartExpenses.Shared.Models;
@@ -10,11 +11,13 @@ namespace SmartExpenses.Api.Controllers
     public class ExpenseController : Controller
     {
         private readonly IExpenseService _expenseService;
+        private readonly IUserService _userService;
         private readonly ILogger<ExpenseController> _logger;
 
-        public ExpenseController(IExpenseService expenseService, ILogger<ExpenseController> logger)
+        public ExpenseController(IExpenseService expenseService, IUserService userService, ILogger<ExpenseController> logger)
         {
             _expenseService = expenseService;
+            _userService = userService;
             _logger = logger;
 
         }
@@ -24,12 +27,23 @@ namespace SmartExpenses.Api.Controllers
         {
             try
             {
-                var result = await _expenseService.Add(expense);
-                if (!result.IsValidExpense())
+                if (expense.IsValidExpense() && expense.User != null && expense.User.Id > 0)
                 {
-                    return StatusCode(500, $"Message delivered: {result.Description}");
+                    var user = _userService.GetUser(expense.User.Id);
+                    if (user == null)
+                    {
+                        return NotFound($"User with id {expense.User.Id} not found");
+                    }
+                    expense.User.Name = user.Name;
+                    expense.User.LastName = user.LastName;
+                    var result = await _expenseService.Add(expense);
+                    if (!result.IsValidExpense())
+                    {
+                        return StatusCode(500, $"Message delivered: {result.Description}");
+                    }
+                    return Ok(result);
                 }
-                return Ok(result);
+                return NotFound();
             }
             catch (Exception ex)
             {
@@ -43,12 +57,19 @@ namespace SmartExpenses.Api.Controllers
         {
             try
             {
-                var result = await _expenseService.Update(expense);
-                if (!result.IsValidExpense())
+                if (expense.IsValidExpense() && expense.User != null && expense.User.Id > 0)
                 {
-                    return StatusCode(500, $"Message delivered: {result}");
+                    var user = _userService.GetUser(expense.User.Id);
+                    expense.User.Name = user.Name;
+                    expense.User.LastName = user.LastName;
+                    var result = await _expenseService.Update(expense);
+                    if (!result.IsValidExpense())
+                    {
+                        return StatusCode(500, $"Message delivered: {result}");
+                    }
+                    return Ok(result);
                 }
-                return Ok(result);
+                return NotFound();
             }
             catch (Exception ex)
             {
