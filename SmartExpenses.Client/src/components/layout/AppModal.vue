@@ -1,16 +1,35 @@
 <script setup lang="ts">
-import { defineProps, defineEmits, ref } from 'vue'
+import { ref, watch, computed } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const props = defineProps({
-  isOpen: Boolean,
+type Field = {
+  key: string
+  label: string
+  type: 'text' | 'number' | 'textarea' // easy to extend
+  required?: boolean
+}
+
+const props = defineProps<{
+  isOpen: boolean
+  title: string
+  fields: Field[]
+  modelValue: Record<string, any>
+}>()
+
+const emit = defineEmits(['update:modelValue', 'submit', 'modal-close'])
+
+const localData = ref({ ...props.modelValue })
+const target = ref(null)
+
+onClickOutside(target, () => emit('modal-close'))
+
+watch(() => props.modelValue, (val) => {
+  localData.value = { ...val }
 })
 
-const emit = defineEmits(['modal-close'])
-
-const target = ref(null)
-onClickOutside(target, () => emit('modal-close'))
+function handleSubmit() {
+  emit('submit', { ...localData.value })
+}
 </script>
 
 <template>
@@ -18,16 +37,32 @@ onClickOutside(target, () => emit('modal-close'))
     <div class="modal-wrapper">
       <div class="modal-container" ref="target">
         <div class="modal-header">
-          <slot name="header"> default header </slot>
+          <h2>{{ title }}</h2>
         </div>
+
         <div class="modal-body">
-          <slot name="content"> default content </slot>
+          <form class="modal-form" @submit.prevent="handleSubmit">
+            <div v-for="field in fields" :key="field.key" class="form-field">
+              <label :for="field.key">{{ field.label }}</label>
+              <input
+                v-if="field.type === 'text' || field.type === 'number'"
+                :type="field.type"
+                :id="field.key"
+                v-model="localData[field.key]"
+              />
+              <textarea
+                v-else-if="field.type === 'textarea'"
+                :id="field.key"
+                v-model="localData[field.key]"
+              />
+            </div>
+          </form>
         </div>
+
         <div class="modal-footer">
           <slot name="footer">
-            <div>
-              <button @click.stop="emit('modal-close')">Submit</button>
-            </div>
+            <button @click="handleSubmit" class="btn-p">Save</button>
+            <button @click="$emit('modal-close')" class="btn-s">Cancel</button>
           </slot>
         </div>
       </div>
@@ -46,11 +81,14 @@ onClickOutside(target, () => emit('modal-close'))
   background-color: rgba(0, 0, 0, 0.5);
 }
 .modal-container {
-  width: 300px;
+  width: 400px;
   margin: 150px auto;
   padding: 20px 30px;
   background-color: #fff;
-  border-radius: 2px;
+  border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
+}
+.form-field {
+  margin-bottom: 1rem;
 }
 </style>

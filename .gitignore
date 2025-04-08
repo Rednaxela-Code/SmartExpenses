@@ -396,3 +396,11 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+SmartExpenses.Api/appsettings.Development.json
+
+SmartExpenses.Api/appsettings.json
+
+SmartExpenses.Data/appsettings.Development.json
+
+SmartExpenses.Data/Migrations/

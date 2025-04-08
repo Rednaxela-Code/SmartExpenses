@@ -37,7 +37,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineEmits, ref } from 'vue'
+import { ref } from 'vue'
 
 defineProps<{ isOpen: boolean }>()
 const emit = defineEmits(['close', 'save'])

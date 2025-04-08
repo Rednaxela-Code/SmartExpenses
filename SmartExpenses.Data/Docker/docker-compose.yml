@@ -1,0 +1,31 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: se_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: snooze
+      POSTGRES_PASSWORD: HSDjhd56ask96
+      POSTGRES_DB: smartexpenses
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: se_pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: rednaxela@tuta.io
+      PGADMIN_DEFAULT_PASSWORD: dsh7dabd7832hbjas0bn
+    ports:
+      - "8080:80"
+    depends_on:
+      - postgres
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
+volumes:
+  postgres_data:
+  pgadmin_data:
