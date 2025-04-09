@@ -24,4 +24,8 @@
     <ProjectReference Include="..\SmartExpenses.Core\SmartExpenses.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="appsettings.Development.json" />
+  </ItemGroup>
+
 </Project>

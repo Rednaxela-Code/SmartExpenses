@@ -15,27 +15,37 @@ public class ExpenseAnalyticsService : IExpenseAnalyticsService
 
     public async Task<decimal> GetAverageExpenses(DateTime from, DateTime to, int userId = 0)
     {
-        // TODO: Implement the from and to.
         decimal expenses = 0;
         if (userId > 0)
         {
-            expenses = await _db.Expenses.Where(e => e.UserId == userId)
+            expenses = await _db.Expenses
+                .Where(e => e.UserId == userId && e.Tstamp >= from && e.Tstamp <= to)
                 .Select(e => e.Amount)
                 .AverageAsync();
             return expenses;
         }
-        expenses = await _db.Expenses.Select(e => e.Amount)
+        expenses = await _db.Expenses
+            .Where(e => e.Tstamp >= from && e.Tstamp <= to)
+            .Select(e => e.Amount)
             .AverageAsync();
         return expenses;
     }
 
-    public Task<decimal> GetExpensesPeriod(DateTime from, DateTime to, int userId = 0)
+    public async Task<decimal> GetTotalExpenses(DateTime from, DateTime to, int userId = 0)
     {
-        throw new NotImplementedException();
-    }
-
-    public Task<decimal> GetTotalExpenses(DateTime from, DateTime to, int userId = 0)
-    {
-        throw new NotImplementedException();
+        decimal expenses = 0;
+        if (userId > 0)
+        {
+            expenses = await _db.Expenses
+                .Where(e => e.UserId == userId && e.Tstamp >= from && e.Tstamp <= to)
+                .Select(e => e.Amount)
+                .SumAsync();
+            return expenses;
+        }
+        expenses = await _db.Expenses
+            .Where(e => e.Tstamp >= from && e.Tstamp <= to)
+            .Select(e => e.Amount)
+            .SumAsync();
+        return expenses;
     }
 }
