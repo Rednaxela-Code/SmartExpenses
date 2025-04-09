@@ -13,39 +13,57 @@ public class ExpenseAnalyticsService : IExpenseAnalyticsService
         _db = db;
     }
 
-    public async Task<decimal> GetAverageExpenses(DateTime from, DateTime to, int userId = 0)
+    public async Task<decimal> GetAverageExpenses(DateOnly from, DateOnly to, int userId = 0)
     {
-        decimal expenses = 0;
-        if (userId > 0)
+        try
         {
+            decimal expenses = 0;
+            if (userId > 0)
+            {
+                expenses = await _db.Expenses
+                    .Where(e => e.UserId == userId && e.Date >= from && e.Date <= to)
+                    .Select(e => e.Amount)
+                    .AverageAsync();
+                return expenses;
+            }
+
             expenses = await _db.Expenses
-                .Where(e => e.UserId == userId && e.Tstamp >= from && e.Tstamp <= to)
+                .Where(e => e.Date >= from && e.Date <= to)
                 .Select(e => e.Amount)
                 .AverageAsync();
             return expenses;
         }
-        expenses = await _db.Expenses
-            .Where(e => e.Tstamp >= from && e.Tstamp <= to)
-            .Select(e => e.Amount)
-            .AverageAsync();
-        return expenses;
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 
-    public async Task<decimal> GetTotalExpenses(DateTime from, DateTime to, int userId = 0)
+    public async Task<decimal> GetTotalExpenses(DateOnly from, DateOnly to, int userId = 0)
     {
-        decimal expenses = 0;
-        if (userId > 0)
+        try
         {
+            decimal expenses = 0;
+            if (userId > 0)
+            {
+                expenses = await _db.Expenses
+                    .Where(e => e.UserId == userId && e.Date >= from && e.Date <= to)
+                    .Select(e => e.Amount)
+                    .SumAsync();
+                return expenses;
+            }
+
             expenses = await _db.Expenses
-                .Where(e => e.UserId == userId && e.Tstamp >= from && e.Tstamp <= to)
+                .Where(e => e.Date >= from && e.Date <= to)
                 .Select(e => e.Amount)
                 .SumAsync();
             return expenses;
         }
-        expenses = await _db.Expenses
-            .Where(e => e.Tstamp >= from && e.Tstamp <= to)
-            .Select(e => e.Amount)
-            .SumAsync();
-        return expenses;
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 }

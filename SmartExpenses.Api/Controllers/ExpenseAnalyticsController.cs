@@ -2,7 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using SmartExpenses.Core.Services.IService;
 
 namespace SmartExpenses.Api.Controllers;
-
+[ApiController]
+[Route("/[controller]")]
 public class ExpenseAnalyticsController : Controller
 {
     private readonly IExpenseAnalyticsService _expenseAnalyticsService;
@@ -15,8 +16,8 @@ public class ExpenseAnalyticsController : Controller
         _logger = logger;
     }
 
-    [Route("GetTotalExpenses")]
-    public async Task<IActionResult> GetTotalExpenses(DateTime from, DateTime to, int userId = 0)
+    [HttpGet("GetTotalExpenses")]
+    public async Task<IActionResult> GetTotalExpenses(DateOnly from, DateOnly to, int userId = 0)
     {
         try
         {
@@ -36,8 +37,8 @@ public class ExpenseAnalyticsController : Controller
         }
     }
 
-    [Route("GetAverageExpenses")]
-    public async Task<IActionResult> GetAverageExpenses(DateTime from, DateTime to, int userId = 0)
+    [HttpGet("GetAverageExpenses")]
+    public async Task<IActionResult> GetAverageExpenses(DateOnly from, DateOnly to, int userId = 0)
     {
         try
         {

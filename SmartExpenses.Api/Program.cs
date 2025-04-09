@@ -27,7 +27,7 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(
 
 builder.Services.AddScoped<IExpenseService, ExpenseService>();
 builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IExpenseService, ExpenseService>();
+builder.Services.AddScoped<IExpenseAnalyticsService, ExpenseAnalyticsService>();
 
 var app = builder.Build();
 app.UseCors("AllowSpecificOrigins");

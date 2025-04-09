@@ -37,6 +37,7 @@ namespace SmartExpenses.Api.Controllers
 
                     // Don't attach the incoming user object — use only the ID
                     expense.UserId = user.Id;
+                    expense.Date = DateOnly.FromDateTime(DateTime.UtcNow);
 
                     var result = await _expenseService.Add(expense);
 
