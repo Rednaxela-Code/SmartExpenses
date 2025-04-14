@@ -5,4 +5,12 @@ export const httpClient = axios.create({
   timeout: 5000,
 })
 
+httpClient.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token')
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
+  }
+  return config
+})
+
 export default httpClient
