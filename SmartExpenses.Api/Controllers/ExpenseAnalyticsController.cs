@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SmartExpenses.Core.Services.IService;
+using SmartExpenses.Shared.Models;
 
 namespace SmartExpenses.Api.Controllers;
 [ApiController]
@@ -16,18 +17,18 @@ public class ExpenseAnalyticsController : Controller
         _logger = logger;
     }
 
-    [HttpGet("GetTotalExpenses")]
-    public async Task<IActionResult> GetTotalExpenses(DateOnly from, DateOnly to, int userId = 0)
+    [HttpGet("Total")]
+    public async Task<IActionResult> Total(DateOnly from, DateOnly to, int userId = 0)
     {
         try
         {
             decimal expenseTotal = 0;
             if (userId > 0)
             {
-                expenseTotal = await _expenseAnalyticsService.GetTotalExpenses(from, to, userId);
+                expenseTotal = await _expenseAnalyticsService.Total(from, to, userId);
                 return Ok(expenseTotal);
             }
-            expenseTotal = await _expenseAnalyticsService.GetTotalExpenses(from, to);
+            expenseTotal = await _expenseAnalyticsService.Total(from, to);
             return Ok(expenseTotal);
         }
         catch (Exception ex)
@@ -37,18 +38,18 @@ public class ExpenseAnalyticsController : Controller
         }
     }
 
-    [HttpGet("GetAverageExpenses")]
-    public async Task<IActionResult> GetAverageExpenses(DateOnly from, DateOnly to, int userId = 0)
+    [HttpGet("Average")]
+    public async Task<IActionResult> Average(DateOnly from, DateOnly to, int userId = 0)
     {
         try
         {
             decimal expenseAverage = 0;
             if (userId > 0)
             {
-                expenseAverage = await _expenseAnalyticsService.GetAverageExpenses(from, to, userId);
+                expenseAverage = await _expenseAnalyticsService.Average(from, to, userId);
                 return Ok(expenseAverage);
             }
-            expenseAverage = await _expenseAnalyticsService.GetAverageExpenses(from, to);
+            expenseAverage = await _expenseAnalyticsService.Average(from, to);
             return Ok(expenseAverage);
         }
         catch (Exception ex)

@@ -13,7 +13,7 @@ public class ExpenseAnalyticsService : IExpenseAnalyticsService
         _db = db;
     }
 
-    public async Task<decimal> GetAverageExpenses(DateOnly from, DateOnly to, int userId = 0)
+    public async Task<decimal> Average(DateOnly from, DateOnly to, int userId = 0)
     {
         try
         {
@@ -40,7 +40,7 @@ public class ExpenseAnalyticsService : IExpenseAnalyticsService
         }
     }
 
-    public async Task<decimal> GetTotalExpenses(DateOnly from, DateOnly to, int userId = 0)
+    public async Task<decimal> Total(DateOnly from, DateOnly to, int userId = 0)
     {
         try
         {
