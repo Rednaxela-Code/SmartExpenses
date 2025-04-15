@@ -1,12 +1,6 @@
 import httpClient from "./httpClient";
+import type { Expense } from '@/types/Expense.ts'
 
-export interface Expense {
-    id: number;
-    name: string;
-    description: string;
-    amount: number;
-    userId: string | null;
-  }
 
   export const getAllExpenses = async (): Promise<Expense[]> => {
     try {

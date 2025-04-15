@@ -1,10 +1,6 @@
 import httpClient from './httpClient'
+import type { User } from '@/types/User.ts'
 
-export interface User {
-  id: number
-  name: string
-  lastName: string
-}
 
 export const getAllUsers = async (): Promise<User[]> => {
   try {
