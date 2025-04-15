@@ -15,7 +15,7 @@ const {token, logout} = useAuth()
       <ul>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/expense">Expenses</RouterLink>
-        <RouterLink to="/">Settings</RouterLink>
+        <RouterLink to="/settings">Settings</RouterLink>
         <button v-if="token !== null" class="btn-p" @click="logout">Logout</button>
       </ul>
     </nav>

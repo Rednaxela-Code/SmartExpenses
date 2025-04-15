@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import UserView from '@/views/UserView.vue'
+import HomeView from '@/views/HomeView.vue'
+import SettingsView from '@/views/SettingsView.vue'
 import ExpenseView from '@/views/ExpenseView.vue'
 import {useAuth} from "@/utils/useAuth.ts";
 import Login from "@/components/pages/Auth/Login.vue";
@@ -22,9 +22,9 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
-      path: '/user',
-      name: 'user',
-      component: UserView,
+      path: '/settings',
+      name: 'settings',
+      component: SettingsView,
       meta: { requiresAuth: true },
     },
     {
