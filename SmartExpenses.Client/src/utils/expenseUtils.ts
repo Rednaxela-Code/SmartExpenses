@@ -5,7 +5,7 @@ export interface Expense {
     name: string;
     description: string;
     amount: number;
-    userId: number;
+    userId: string | null;
   }
 
   export const getAllExpenses = async (): Promise<Expense[]> => {
@@ -17,7 +17,7 @@ export interface Expense {
       return [] // Return an empty array instead of null
     }
   }
-  
+
   export const createExpense = async (expense: Expense) => {
     try {
       const response = await httpClient.post('/Expense', expense, {
@@ -30,7 +30,7 @@ export interface Expense {
       console.error('Error creating Expense:', error)
     }
   }
-  
+
   export const updateExpense = async (expense: Expense) => {
     try {
       const response = await httpClient.put('/Expense', expense, {
@@ -43,7 +43,7 @@ export interface Expense {
       console.error('Error updating Expense:', error)
     }
   }
-  
+
   export const deleteExpense = async (id: number) => {
     try {
       const response = await httpClient.delete(`/Expense?id=${id}`, {

@@ -2,7 +2,6 @@
 using SmartExpenses.Core.Services.IService;
 using SmartExpenses.Core.Validators;
 using SmartExpenses.Shared.Models;
-using System.Runtime.CompilerServices;
 
 namespace SmartExpenses.Api.Controllers
 {
@@ -19,6 +18,7 @@ namespace SmartExpenses.Api.Controllers
             _logger = logger;
         }
 
+        [Obsolete]
         [HttpPost(Name = "CreateUser")]
         public async Task<IActionResult> Create([FromBody] User user)
         {
@@ -76,6 +76,7 @@ namespace SmartExpenses.Api.Controllers
             }
         }
 
+        [Obsolete]
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
