@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {useAuth} from "@/utils/useAuth.ts";
 
-const {logout} = useAuth()
+const {token, logout} = useAuth()
 
 </script>
 
@@ -15,9 +15,8 @@ const {logout} = useAuth()
       <ul>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/expense">Expenses</RouterLink>
-        <RouterLink to="/user">Users</RouterLink>
         <RouterLink to="/">Settings</RouterLink>
-        <button class="btn-p" @click="logout">Logout</button>
+        <button v-if="token !== null" class="btn-p" @click="logout">Logout</button>
       </ul>
     </nav>
   </header>
