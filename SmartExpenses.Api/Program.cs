@@ -31,8 +31,6 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(
 ));
 
 builder.Services.AddScoped<IExpenseService, ExpenseService>();
-builder.Services.AddScoped<IUserService, UserService>();
-
 
 // Identity
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -63,6 +61,12 @@ builder.Services.AddAuthorization();
 
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    await AppDbSeeder.SeedAsync(scope.ServiceProvider);
+}
+
 app.UseCors("AllowSpecificOrigins");
 
 
@@ -75,8 +79,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

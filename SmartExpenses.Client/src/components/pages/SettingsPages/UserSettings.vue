@@ -10,9 +10,9 @@ const columns: Column[] = [
 </script>
 
 <template>
-  <AppTable
-    :columns="columns"
-    :rows="users" />
+<!--  <AppTable-->
+<!--    :columns="columns"-->
+<!--    :rows="users" />-->
 </template>
 
 <style scoped>

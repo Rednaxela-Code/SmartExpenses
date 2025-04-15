@@ -2,9 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import SettingsView from '@/views/SettingsView.vue'
 import ExpenseView from '@/views/ExpenseView.vue'
-import {useAuth} from "@/utils/useAuth.ts";
-import Login from "@/components/pages/Auth/Login.vue";
-import Register from "@/components/pages/Auth/Register.vue";
+import Login from '@/components/pages/Auth/Login.vue'
+import Register from '@/components/pages/Auth/Register.vue'
+import { useAuthStore } from '@/stores/auth'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -25,40 +25,42 @@ const router = createRouter({
       path: '/settings',
       name: 'settings',
       component: SettingsView,
-      meta: { requiresAuth: true },
+      meta: { requiresAuth: true, roles: ['Admin'] },
     },
     {
       path: '/about',
       name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue'),
       meta: { requiresAuth: true },
     },
     {
       path: '/login',
-      component: Login
+      component: Login,
     },
     {
       path: '/register',
-      component: Register
+      component: Register,
     },
   ],
 })
 
 router.beforeEach(async (to, from, next) => {
-  const { token, fetchUser, user } = useAuth()
+  const auth = useAuthStore()
 
-  if (token.value && !user.value) {
-    await fetchUser()
+  // Make sure user is decoded if token is set but user is not yet available
+  if (auth.token && !auth.user) {
+    auth.fetchUser()
   }
 
-  if (to.meta.requiresAuth && !token.value) {
-    next('/login')
-  } else {
-    next()
+  if (to.meta.requiresAuth && !auth.isAuthenticated) {
+    return next('/login')
   }
+
+  if (to.meta.roles && !auth.role.some(r => (to.meta.roles as string[]).includes(r))) {
+    return next('/unauthorized')
+  }
+
+  next()
 })
 
 export default router

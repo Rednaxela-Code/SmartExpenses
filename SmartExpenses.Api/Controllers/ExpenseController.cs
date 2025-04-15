@@ -13,18 +13,15 @@ namespace SmartExpenses.Api.Controllers
     public class ExpenseController : Controller
     {
         private readonly IExpenseService _expenseService;
-        private readonly IUserService _userService;
         private readonly ILogger<ExpenseController> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
 
         public ExpenseController(
             IExpenseService expenseService,
-            IUserService userService,
             ILogger<ExpenseController> logger,
             UserManager<ApplicationUser> userManager)
         {
             _expenseService = expenseService;
-            _userService = userService;
             _logger = logger;
             _userManager = userManager;
         }
