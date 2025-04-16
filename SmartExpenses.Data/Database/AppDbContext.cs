@@ -16,6 +16,7 @@ namespace SmartExpenses.Data.Database
         public DbSet<Member> Members { get; set; }
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Settings> Settings { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -36,6 +37,10 @@ namespace SmartExpenses.Data.Database
                 .HasForeignKey(m => m.ApplicationUserId)
                 .IsRequired(false);
 
+            modelBuilder.Entity<RefreshToken>()
+                .HasOne(t => t.ApplicationUser)
+                .WithMany(u => u.RefreshTokens)
+                .HasForeignKey(t => t.ApplicationUserId);
         }
     }
 }

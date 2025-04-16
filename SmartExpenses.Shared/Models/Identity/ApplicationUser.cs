@@ -4,7 +4,8 @@ namespace SmartExpenses.Shared.Models.Identity;
 
 public class ApplicationUser : IdentityUser
 {
-    public ICollection<Member> Members { get; set; }
+    public ICollection<Member> Members { get; set; } = new List<Member>();
+    public ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
 }
 
 public class Account
