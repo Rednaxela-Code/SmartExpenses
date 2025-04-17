@@ -32,20 +32,16 @@ Ensure the following tools are installed on your development machine:
    docker-compose up
    ```
 
-   This will build and start both the backend (.NET 9) and PostgreSQL database containers.
+   This will build and start PostgreSQL and PgAdmin containers.
 
-3. **Access the application**
+## 🧪 Running
 
-   Open your browser and navigate to `http://localhost:5000` to start using the app.
+### Backend
 
-## 🧪 Running Tests
-
-### Backend Tests
-
-Navigate to the test project directory (if available) and run:
+Navigate to the project directory and run:
 
 ```bash
-cd SmartExpenses.Tests
+cd SmartExpenses.Api
 dotnet run watch
 ```
 
