@@ -1,12 +1,6 @@
 import httpClient from "./httpClient";
+import type { Expense } from '@/types/Expense.ts'
 
-export interface Expense {
-    id: number;
-    name: string;
-    description: string;
-    amount: number;
-    userId: number;
-  }
 
   export const getAllExpenses = async (): Promise<Expense[]> => {
     try {
@@ -17,7 +11,7 @@ export interface Expense {
       return [] // Return an empty array instead of null
     }
   }
-  
+
   export const createExpense = async (expense: Expense) => {
     try {
       const response = await httpClient.post('/Expense', expense, {
@@ -30,7 +24,7 @@ export interface Expense {
       console.error('Error creating Expense:', error)
     }
   }
-  
+
   export const updateExpense = async (expense: Expense) => {
     try {
       const response = await httpClient.put('/Expense', expense, {
@@ -43,7 +37,7 @@ export interface Expense {
       console.error('Error updating Expense:', error)
     }
   }
-  
+
   export const deleteExpense = async (id: number) => {
     try {
       const response = await httpClient.delete(`/Expense?id=${id}`, {

@@ -404,3 +404,5 @@ SmartExpenses.Api/appsettings.json
 SmartExpenses.Data/appsettings.Development.json
 
 SmartExpenses.Data/Migrations/
+
+SmartExpenses.Api/.idea/.idea.SmartExpenses.Api/.idea/

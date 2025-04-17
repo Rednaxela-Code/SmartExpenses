@@ -15,13 +15,13 @@ const formData = ref<Expense>({
   name: '',
   description: '',
   amount: 0,
-  userId: 0
+  userId: ''
 })
 
 const fields: Field[] = [
   { key: 'name', label: 'Name', type: 'text' },
   { key: 'amount', label: 'Amount', type: 'number' },
-  { key: 'userId', label: 'User ID', type: 'number' },
+  { key: 'userId', label: 'User ID', type: 'text' },
   { key: 'description', label: 'Description', type: 'textarea' }
 ]
 
@@ -38,7 +38,7 @@ const openAddModal = () => {
     name: '',
     description: '',
     amount: 0,
-    userId: 0
+    userId: ''
   }
   showModal.value = true
 }
@@ -91,8 +91,8 @@ onMounted(fetchExpenses)
       { key: 'id', label: '#' },
       { key: 'name', label: 'Name' },
       { key: 'amount', label: 'Amount' },
-      { key: 'userId', label: 'User' },
-      { key: 'description', label: 'Description' }
+      { key: 'description', label: 'Description' },
+      { key: 'userId', label: 'User ID' }
     ]"
     :rows="expenses"
     :selected-row="selectedRow"

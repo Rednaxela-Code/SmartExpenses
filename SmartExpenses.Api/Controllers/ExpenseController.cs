@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using SmartExpenses.Core.Services.IService;
 using SmartExpenses.Core.Validators;
 using SmartExpenses.Shared.Models;
+using SmartExpenses.Shared.Models.Identity;
 
 namespace SmartExpenses.Api.Controllers
 {
@@ -11,15 +13,17 @@ namespace SmartExpenses.Api.Controllers
     public class ExpenseController : Controller
     {
         private readonly IExpenseService _expenseService;
-        private readonly IUserService _userService;
         private readonly ILogger<ExpenseController> _logger;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ExpenseController(IExpenseService expenseService, IUserService userService, ILogger<ExpenseController> logger)
+        public ExpenseController(
+            IExpenseService expenseService,
+            ILogger<ExpenseController> logger,
+            UserManager<ApplicationUser> userManager)
         {
             _expenseService = expenseService;
-            _userService = userService;
             _logger = logger;
-
+            _userManager = userManager;
         }
 
         [HttpPost(Name = "AddExpense")]
@@ -27,16 +31,16 @@ namespace SmartExpenses.Api.Controllers
         {
             try
             {
-                if (expense.IsValidExpense() && expense.UserId > 0)
+                var currentUser = await _userManager.GetUserAsync(User);
+                if (expense.IsValidExpense())
                 {
-                    var user = _userService.GetUser(expense.UserId);
-                    if (user == null)
+                    if (currentUser == null)
                     {
                         return NotFound($"User with id {expense.UserId} not found");
                     }
 
                     // Don't attach the incoming user object — use only the ID
-                    expense.UserId = user.Id;
+                    expense.UserId = currentUser.Id;
 
                     var result = await _expenseService.Add(expense);
 
@@ -62,9 +66,8 @@ namespace SmartExpenses.Api.Controllers
         {
             try
             {
-                if (expense.IsValidExpense() && expense.UserId > 0)
+                if (expense.IsValidExpense())
                 {
-                    var user = _userService.GetUser(expense.UserId);
                     var result = await _expenseService.Update(expense);
                     if (!result.IsValidExpense())
                     {
@@ -126,6 +129,11 @@ namespace SmartExpenses.Api.Controllers
                 _logger.LogError(ex, ex.Message);
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
+        }
+
+        private Task<ApplicationUser?> GetCurrentUser()
+        {
+            return _userManager.GetUserAsync(HttpContext.User);
         }
     }
 }
